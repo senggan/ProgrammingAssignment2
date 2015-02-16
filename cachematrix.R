@@ -1,4 +1,4 @@
-## This function creates a special "matrix" object that can cache its inverse.
+# This function creates a special "matrix" object that can cache its inverse.
 
 makeCacheMatrix <- function(x = matrix()) {
     
@@ -28,15 +28,15 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## This function computes the inverse of the special "matrix" returned 
-## by makeCacheMatrix above. If the inverse has already been calculated 
-## and the matrix has not changed, then the cachesolve should retrieve 
-## the inverse from the cache.
-
-## This function test whether the passed argument is a list with 
-## "getsolve" and "setsolve" functions.
-## This is done to check and make sure that "makeCacheMatrix" is called 
-## before cacheSolve function.
+# This function computes the inverse of the special "matrix" returned 
+# by makeCacheMatrix above. If the inverse has already been calculated 
+# and the matrix has not changed, then the cachesolve should retrieve 
+# the inverse from the cache.
+#
+# This function test whether the passed argument is a list with 
+# "getsolve" and "setsolve" functions.
+# This is done to check and make sure that "makeCacheMatrix" is called 
+# before cacheSolve function.
 
 cacheSolve <- function(x=matrix(), ...) {
     
@@ -48,28 +48,20 @@ cacheSolve <- function(x=matrix(), ...) {
                 if(!is.null(m)) {
                     message("getting cached data")
                     return(m)
-                }
-                else
-                {
+                } else {
                     data <- x$get()
                     m <- solve(data, ...)
                     x$setsolve(m)
                     m
                 }
-            }
-            else
-            {
+            } else {
                 message("You need to call makeCacheMatrix function first -> Failed setsolve")
             }
-        }
-        else
-        {
+        } else {
             message("You need to call makeCacheMatrix function first -> Failed getsolve")
         }
         
-    }
-    else
-    {
+    } else {
         message("You need to call makeCacheMatrix function first-> Failed list")
     }    
 }
