@@ -1,4 +1,6 @@
 # This function creates a special "matrix" object that can cache its inverse.
+# It returns a list of 4 functions to access the object
+# get , set, getsolve, setsolve
 
 makeCacheMatrix <- function(x = matrix()) {
     
@@ -40,10 +42,14 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x=matrix(), ...) {
     
-    ## Return a matrix that is the inverse of 'x'
+    # Return a matrix that is the inverse of 'x'
+    
+    # The follwing set of if statement validate that makeCacheMatrix had 
+    # been called and cacheSolve is called with a list of functions
+    
     if(class(x) =="list" ){
-        if ( class(x["getsolve"])== "function"){
-            if ( class(x["setsolve"])== "function"){
+        if ( class(x[["getsolve"]])== "function"){
+            if ( class(x[["setsolve"]])== "function"){
                 m <- x$getsolve()
                 if(!is.null(m)) {
                     message("getting cached data")
@@ -54,13 +60,15 @@ cacheSolve <- function(x=matrix(), ...) {
                     x$setsolve(m)
                     m
                 }
+                
             } else {
                 message("You need to call makeCacheMatrix function first -> Failed setsolve")
             }
+            
         } else {
             message("You need to call makeCacheMatrix function first -> Failed getsolve")
         }
-        
+                
     } else {
         message("You need to call makeCacheMatrix function first-> Failed list")
     }    
